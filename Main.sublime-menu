@@ -1,0 +1,71 @@
+[
+    {
+        "id": "tools",
+        "children":
+        [
+          {
+            "caption": "Lessc > CSS",
+            "id": "lessc32css",
+            "children":
+            [
+              { "command": "less_to_css", "caption": "Compile Current Less file"},
+              { "caption": "-" },
+              { "command": "all_less_to_css", "caption": "Compile All Less files"},
+            ]
+          }
+        ]
+      },
+    {
+        "caption": "Preferences",
+        "mnemonic": "n",
+        "id": "preferences",
+        "children":[
+            {
+                "caption": "Package Settings",
+                "mnemonic": "P",
+                "id": "package-settings",
+                "children":[
+                    {
+                        "caption": "Lessc",
+                        "children":[
+                          {
+                            "caption": "Settings",
+                            "command": "open_file",
+                            "args": {
+                                "file": "${packages}/lessc/lessc.sublime-settings",
+                                "platform": "Windows"
+                            }
+                          },
+                          { "caption": "-" },
+                          {
+                            "command": "open_file",
+                            "args": {
+                              "file": "${packages}/lessc/Default (Windows).sublime-keymap",
+                              "platform": "Windows"
+                            },
+                            "caption": "Key Bindings – Default"
+                          },
+                          { "caption": "-" },
+                          {
+                            "caption": "Document",
+                            "command": "open_file",
+                            "args": {
+                                "file": "${packages}/lessc/doc.md",
+                                "platform": "Windows"
+                            }
+                          },
+                          {
+                            "caption": "ReadMe",
+                            "command": "open_file",
+                            "args": {
+                                "file": "${packages}/lessc/README.md",
+                                "platform": "Windows"
+                            }
+                          }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

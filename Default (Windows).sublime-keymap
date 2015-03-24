@@ -1,0 +1,6 @@
+[
+  {
+    "keys": ["alt+l"], "command": "less_to_css",
+    "keys": ["ctrl+shift+l"], "command": "all_less_to_css"
+  }
+]
