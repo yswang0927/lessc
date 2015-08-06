@@ -82,3 +82,36 @@ You can also bundle pseudo-selectors with your mixins using this method. Here's 
     visibility: hidden;
   }
 }
+
+--------------------------------------
+@import 用法(http://lesscss.org/features/#import-options-less)
+  @import 可以用来表示普通的 css 的 @import 行为；
+  也可以用来导入一个Less文件 或 将引用的文件内容添加到被输出的less文件中。
+
+@import statements may be treated differently by Less depending on the file extension:
+
+  If the file has a .css extension it will be treated as CSS and the @import statement left as-is (see the inline option below).
+  If it has any other extension it will be treated as Less and imported.
+  If it does not have an extension, .less will be appended and it will be included as a imported Less file.
+
+eg: @import "a.css"
+    @import "a.less"
+
+可选参数用法：
+Less offers several extensions to the CSS @import CSS at-rule to provide more flexibility over what you can do with external files.
+
+Syntax: @import (keyword) "filename";
+
+The following import directives have been implemented:
+
+  (reference) : use a Less file but do not output it
+  (inline) : include the source file in the output but do not process it
+  (less) : treat the file as a Less file, no matter what the file extension
+  (css) : treat the file as a CSS file, no matter what the file extension
+  (once) : only include the file once (this is default behavior)
+  (multiple) : include the file multiple times
+  (optional) : continue compiling when file is not found
+
+More than one keyword per @import is allowed, you will have to use commas to separate the keywords:
+
+Example: @import (optional, reference) "foo.less";

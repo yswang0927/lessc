@@ -56,7 +56,7 @@ def lesscAll():
 def lessc(filepath):
   if filepath is None:
     return
-
+  filepath = replaceOsSep(filepath)
   (fileroot, fileext) = os.path.splitext(filepath)
   if (fileext!='.less'):
     return
@@ -64,7 +64,7 @@ def lessc(filepath):
   cfg = getSetting()
   _less_dir=cfg[CFG_LESS_DIR]
   _output_dir=cfg[CFG_OUTPUT_DIR]
-  _is_compress=cfg[CFG_AUTO_COMPILE]
+  _is_compress=cfg[CFG_COMPRESS]
   _encoding=cfg[CFG_ENCODING]
 
   (less_file_dir, less_file_name)=os.path.split(filepath)
@@ -76,8 +76,9 @@ def lessc(filepath):
     _output_dir=less_file_dir
 
   # relative path from current file path
-  if (_output_dir.startswith('./') or _output_dir.startswith('../') or _output_dir.startswith('.\\') or _output_dir.startswith('..\\')):
-    _output_dir=os.path.join(less_file_dir, _output_dir)
+  #if (_output_dir.startswith('./') or _output_dir.startswith('../') or _output_dir.startswith('.\\') or _output_dir.startswith('..\\')):
+  if (_output_dir.startswith('.'+ os.sep) or _output_dir.startswith('..'+ os.sep)):
+    _output_dir=os.path.join(_less_dir, _output_dir)
 
   # parse relative path: ./ ../ if exists
   _output_dir=os.path.normpath(_output_dir)
@@ -104,12 +105,10 @@ def lessc(filepath):
   execmd = '@cscript //nologo "'+sublime.packages_path()+'\\'+package_name+'\\lessc.wsf"'+' "'+ filepath +'"'+' "'+ output_file +'"'
 
   if _is_compress:
-    execmd += ' -compress'
-
+    execmd += ' --compress'
+  
   execmd += ' --encoding=' + _encoding
-
   #execmd = execmd.encode(_encoding) #先将编码转换到gbk
-
   res = subprocess.Popen(execmd, bufsize=-1, executable=None, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, preexec_fn=None, close_fds=False, shell=True)
   res.wait()
 
@@ -125,8 +124,13 @@ def lessc(filepath):
   sublime.set_timeout(functools.partial(status, remsg), 1200);
   sublime.set_timeout(functools.partial(reloadCss, output_file), 400);
     
+def replaceOsSep(path):
+  path = path.replace('/', os.sep)
+  path = path.replace('\\', os.sep)
+  return path
 
 def normalizePath(path):
+  path = replaceOsSep(path)
   if (path.endswith(os.sep)):
     path=path[:-1]
   return path
